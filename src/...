@@ -1,0 +1,24 @@
+#include <snake&ladder.h>
+int getchar()
+{
+	//  int8_t* get_address = (int*) 0x11200;
+	//  int8_t value = 0;
+
+	//   while(value==0){
+	//    value = *get_address;
+	//    value = value & 0x1;
+	//   }
+
+	register char a0 asm("a0");
+	asm volatile ("li t1, 0x11200" "\n\t" //The base address of UART config registers
+			"uart_statusr: lb t2, 40(t1)" "\n\t"
+			"andi t2, t2, 0x1" "\n\t"
+			"beqz t2, uart_statusr" "\n\t"
+			"lb a0, 0(t1)"  "\n\t"      //The base address of UART data register
+			:
+			:
+			:"a0","t1","t2","cc","memory");
+
+	return a0;
+}
+
