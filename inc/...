@@ -1,0 +1,12 @@
+#ifndef __snake&ladder_H__
+#define __snake&ladder_H__
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
+int dice=0;
+int checkposition();
+int position=0, newposition=0, above=0;
+int choice=0;
+uint16_t lfsr = 0xACE1u;
+int getchar()
+
